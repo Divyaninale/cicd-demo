@@ -1,9 +1,9 @@
-name: Python CI
+name: Python CI Pipeline
 
 on: [push]
 
 jobs:
-  test:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -20,5 +20,14 @@ jobs:
     - name: Install pytest
       run: pip install pytest
 
-    - name: Run tests
+    - name: Run Tests
       run: pytest
+
+    - name: Generate Report
+      run: python generate_report.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-report
+        path: report.txt
